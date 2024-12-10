@@ -1,7 +1,7 @@
 # Define variables  
 $projectPath = "C:\Polygon Panda Party\polygon-panda-party\my-express-app"  # Change this to your project path  
 $gitRemote = "origin"  # Change this if your remote is named differently  
-$branchName = "main"  # Change this to your branch name if different  
+$branchName = "master"  # Change this to your branch name if different  
 
 # Navigate to the project directory  
 Set-Location -Path $projectPath  
