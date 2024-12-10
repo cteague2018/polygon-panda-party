@@ -65,7 +65,7 @@ function App() {
           <div className="text-center">  
             <h1 className="text-white text-3xl font-bubblegum mb-4">🐼 Polygon Panda Party</h1>  
             <div className="flex justify-center space-x-4 mb-8">  
-              <button onClick={() => setCurrentPage('home')} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">  
+              <button onClick={() => setCurrentPage('winners')} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">  
                 🏆 View Current Winners  
               </button>  
               <button onClick={() => setCurrentPage('pastWinners')} className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">  
