@@ -1,44 +1,44 @@
-/* Container for centering the entire page content */  
-.center-container {  
-  display: flex;  
-  justify-content: center;  
-  align-items: center;  
-  min-height: 100vh;  
-  background-color: #f7fafc;  
-  padding: 1rem;  
-}  
+/* Container for centering the entire page content */    
+.center-container {    
+  display: flex;    
+  justify-content: center;    
+  align-items: center;    
+  min-height: 100vh;    
+  background-color: #f7fafc;    
+  padding: 1rem;    
+}    
 
-/* Content wrapper with max-width and styling */  
-.content {  
-  max-width: 800px;  
-  width: 100%;  
-  background-color: white;  
-  border-radius: 0.5rem;  
-  padding: 2rem;  
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
-}  
+/* Content wrapper with max-width and styling */    
+.content {    
+  max-width: 800px;    
+  width: 100%;    
+  background-color: white;    
+  border-radius: 0.5rem;    
+  padding: 2rem;    
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);    
+}    
 
-/* Bubblegum font class */  
-.font-bubblegum {  
-  font-family: 'Bubblegum Sans', cursive;  
-}  
+/* Bubblegum font class */    
+.font-bubblegum {    
+  font-family: 'Bubblegum Sans', cursive;    
+}    
 
-/* Additional utility classes */  
-.text-center {  
-  text-align: center;  
-}  
+/* Additional utility classes */    
+.text-center {    
+  text-align: center;    
+}    
 
-.mb-6 {  
-  margin-bottom: 1.5rem;  
-}  
+.mb-6 {    
+  margin-bottom: 1.5rem;    
+}    
 
-.space-y-2 > * + * {  
-  margin-top: 0.5rem;  
-}  
+.space-y-2 > * + * {    
+  margin-top: 0.5rem;    
+}    
 
-/* Responsive adjustments */  
-@media (max-width: 640px) {  
-  .content {  
-    padding: 1rem;  
-  }  
+/* Responsive adjustments */    
+@media (max-width: 640px) {    
+  .content {    
+    padding: 1rem;    
+  }    
 }  

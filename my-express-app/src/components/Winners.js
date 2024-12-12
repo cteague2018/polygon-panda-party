@@ -1,58 +1,75 @@
-import React, { useState } from 'react';  
+import React, { useState } from 'react';    
+import WalletConnect from './WalletConnect';    
+import { ethers } from 'ethers'; // Correct import    
 
-// Sample prize data  
-const prizes = [  
-  { id: 1, name: 'Grand Prize', amount: '\$1,500' },  
-  { id: 2, name: 'Second Prize', amount: '\$1,000' },  
-  { id: 3, name: 'Third Prize', amount: '\$750' },  
-  { id: 4, name: 'Fourth Prize', amount: '\$300' },  
-  { id: 5, name: 'Fifth Prize', amount: '\$200' },  
-];  
+const Winners = () => {    
+  const [currentWinners, setCurrentWinners] = useState([]);    
+  const [previousWinners, setPreviousWinners] = useState([]);    
+  const [walletAddress, setWalletAddress] = useState('');    
+  const totalNFTs = 10000;    
 
-// Function to simulate selecting a random winner  
-const selectRandomWinner = (totalNFTs) => {  
-  const winnerIndex = Math.floor(Math.random() * totalNFTs) + 1; // Random number between 1 and totalNFTs  
-  return `NFT#${winnerIndex}`; // Return a string representing the NFT winner  
-};  
+  const selectWinners = () => {    
+    const uniqueWinners = new Set(); // Use a Set to ensure uniqueness  
 
-const Winners = () => {  
-  const [winners, setWinners] = useState([]);  
+    while (uniqueWinners.size < 10) { // Ensure we get 10 unique winners  
+      const randomIndex = Math.floor(Math.random() * totalNFTs);  
+      uniqueWinners.add(`NFT #${randomIndex + 1}`); // Add unique NFT IDs  
+    }  
 
-  const handleSelectWinners = () => {  
-    const selectedWinners = prizes.map(prize => ({  
-      prize: prize.name,  
-      amount: prize.amount,  
-      winner: selectRandomWinner(10000), // Simulate selecting a winner from 10,000 NFTs  
-    }));  
-    setWinners(selectedWinners);  
-  };  
+    setCurrentWinners(Array.from(uniqueWinners)); // Convert Set back to Array  
+  };    
 
-  return (  
-    <div className="p-8">  
-      <h2 className="text-3xl font-bubblegum mb-6 text-center">🏆 Current Winners</h2>  
-      <div className="text-center mb-4">  
-        <button  
-          onClick={handleSelectWinners}  
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"  
-        >  
-          Select Winners  
-        </button>  
-      </div>  
-      {winners.length > 0 && (  
-        <div className="bg-white rounded-lg shadow-lg p-6">  
-          <ul className="space-y-4">  
-            {winners.map((winner, index) => (  
-              <li key={index} className="flex justify-between items-center p-4 border-b border-gray-200">  
-                <span className="font-semibold">{winner.prize}</span>  
-                <span className="text-gray-600">{winner.amount}</span>  
-                <span className="text-green-600 font-bold">{winner.winner}</span>  
-              </li>  
-            ))}  
-          </ul>  
-        </div>  
-      )}  
-    </div>  
-  );  
-};  
+  const verifyOwnership = async (nftId) => {    
+    const nftContractAddress = 'YOUR_NFT_CONTRACT_ADDRESS'; // Replace with your NFT contract address    
+    const nftContractABI = []; // Add your NFT contract ABI here    
 
-export default Winners;  
+    const provider = new ethers.BrowserProvider(window.ethereum); // Updated for ethers v6    
+    const contract = new ethers.Contract(nftContractAddress, nftContractABI, provider);    
+    const owner = await contract.ownerOf(nftId);    
+
+    return owner.toLowerCase() === walletAddress.toLowerCase();    
+  };    
+
+  const handleVerifyWinners = async () => {    
+    const verifiedWinners = [];    
+    for (const nft of currentWinners) {    
+      const nftId = nft.split('#')[1];    
+      const isOwner = await verifyOwnership(nftId);    
+      if (isOwner) {    
+        verifiedWinners.push(nft);    
+      }    
+    }    
+    alert(`Verified Winners: ${verifiedWinners.join(', ')}`);    
+    setPreviousWinners((prev) => [...prev, ...verifiedWinners]);    
+    setCurrentWinners([]);    
+  };    
+
+  return (    
+    <div>    
+      <h1>Current Winners</h1>    
+      <WalletConnect onConnect={setWalletAddress} />    
+      <button onClick={selectWinners} className="bg-green-500 text-white p-2 rounded">    
+        Select Winners    
+      </button>    
+      <ul>    
+        {currentWinners.map((winner) => (    
+          <li key={winner + Date.now()}>{winner}</li> // Use a unique key  
+        ))}    
+      </ul>    
+      {currentWinners.length > 0 && (    
+        <button onClick={handleVerifyWinners} className="bg-blue-500 text-white p-2 rounded">    
+          Verify Winners    
+        </button>    
+      )}    
+
+      <h1>Previous Winners</h1>    
+      <ul>    
+        {previousWinners.map((winner) => (    
+          <li key={winner + Date.now()}>{winner}</li> // Use a unique key  
+        ))}    
+      </ul>    
+    </div>    
+  );    
+};    
+
+export default Winners;    
