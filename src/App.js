@@ -1,4 +1,5 @@
 import React from 'react';
+import Home from './components/Home'; // Adjust the path if necessary
 
 // Add required font
 const fontImport = document.createElement('link');
