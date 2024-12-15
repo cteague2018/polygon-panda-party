@@ -1,13 +1,45 @@
-/* src/styles/index.css */  
 @tailwind base;  
 @tailwind components;  
 @tailwind utilities;  
-
+  
+/* Global Styles */  
 body {  
-    margin: 0;  
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',  
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',  
-        sans-serif;  
-    -webkit-font-smoothing: antialiased;  
-    -moz-osx-font-smoothing: grayscale;  
+  margin: 0;  
+  font-family: 'Bubblegum Sans', cursive, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;  
+  -webkit-font-smoothing: antialiased;  
+  -moz-osx-font-smoothing: grayscale;  
 }  
+  
+/* Confetti Animation */  
+@keyframes confetti {  
+  0% {  
+    transform: translateY(0);  
+  }  
+  100% {  
+    transform: translateY(-100vh);  
+  }  
+}  
+  
+/* Confetti Styles */  
+.confetti {  
+  position: absolute;  
+  top: 0;  
+  width: 10px;  
+  height: 10px;  
+  opacity: 0.8;  
+  animation: confetti 3s linear infinite;  
+  z-index: -1;  
+}  
+  
+/* Confetti Colors and Positions (Simplified) */  
+.confetti {  
+  background-color: rgb(var(--color)); /* Use CSS variable for color */  
+}  
+  
+/* Style for the confetti colors */  
+:root {  
+  --color: 255,105,180; /* Pink */  
+}  
+  
+/*Import Bubblegum font*/  
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');  

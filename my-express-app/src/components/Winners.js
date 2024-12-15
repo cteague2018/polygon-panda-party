@@ -1,75 +1,90 @@
-import React, { useState } from 'react';    
-import WalletConnect from './WalletConnect';    
-import { ethers } from 'ethers'; // Correct import    
-
-const Winners = () => {    
-  const [currentWinners, setCurrentWinners] = useState([]);    
-  const [previousWinners, setPreviousWinners] = useState([]);    
-  const [walletAddress, setWalletAddress] = useState('');    
-  const totalNFTs = 10000;    
-
-  const selectWinners = () => {    
-    const uniqueWinners = new Set(); // Use a Set to ensure uniqueness  
-
-    while (uniqueWinners.size < 10) { // Ensure we get 10 unique winners  
-      const randomIndex = Math.floor(Math.random() * totalNFTs);  
-      uniqueWinners.add(`NFT #${randomIndex + 1}`); // Add unique NFT IDs  
-    }  
-
-    setCurrentWinners(Array.from(uniqueWinners)); // Convert Set back to Array  
-  };    
-
-  const verifyOwnership = async (nftId) => {    
-    const nftContractAddress = 'YOUR_NFT_CONTRACT_ADDRESS'; // Replace with your NFT contract address    
-    const nftContractABI = []; // Add your NFT contract ABI here    
-
-    const provider = new ethers.BrowserProvider(window.ethereum); // Updated for ethers v6    
-    const contract = new ethers.Contract(nftContractAddress, nftContractABI, provider);    
-    const owner = await contract.ownerOf(nftId);    
-
-    return owner.toLowerCase() === walletAddress.toLowerCase();    
-  };    
-
-  const handleVerifyWinners = async () => {    
-    const verifiedWinners = [];    
-    for (const nft of currentWinners) {    
-      const nftId = nft.split('#')[1];    
-      const isOwner = await verifyOwnership(nftId);    
-      if (isOwner) {    
-        verifiedWinners.push(nft);    
-      }    
-    }    
-    alert(`Verified Winners: ${verifiedWinners.join(', ')}`);    
-    setPreviousWinners((prev) => [...prev, ...verifiedWinners]);    
-    setCurrentWinners([]);    
-  };    
-
-  return (    
-    <div>    
-      <h1>Current Winners</h1>    
-      <WalletConnect onConnect={setWalletAddress} />    
-      <button onClick={selectWinners} className="bg-green-500 text-white p-2 rounded">    
-        Select Winners    
-      </button>    
-      <ul>    
-        {currentWinners.map((winner) => (    
-          <li key={winner + Date.now()}>{winner}</li> // Use a unique key  
-        ))}    
-      </ul>    
-      {currentWinners.length > 0 && (    
-        <button onClick={handleVerifyWinners} className="bg-blue-500 text-white p-2 rounded">    
-          Verify Winners    
-        </button>    
-      )}    
-
-      <h1>Previous Winners</h1>    
-      <ul>    
-        {previousWinners.map((winner) => (    
-          <li key={winner + Date.now()}>{winner}</li> // Use a unique key  
-        ))}    
-      </ul>    
-    </div>    
-  );    
-};    
-
-export default Winners;    
+import React from 'react';  
+  
+const Winners = ({ walletAddress }) => {  
+  const currentWinners = [  
+    { rank: 1, prize: "$1,500", nftId: "#4281", wallet: "0x1234...5678" },  
+    { rank: 2, prize: "$1,000", nftId: "#6392", wallet: "0x8765...4321" },  
+    { rank: 3, prize: "$750", nftId: "#1573", wallet: "0x9876...1234" },  
+    { rank: 4, prize: "$300", nftId: "#8924", wallet: "0x4567...8901" },  
+    { rank: 5, prize: "$200", nftId: "#2467", wallet: "0x3210...9876" }  
+  ];  
+  
+  const handleClaim = (winner) => {  
+    // Simulate claim process - replace with actual blockchain interaction  
+    console.log(`Claiming prize for NFT ${winner.nftId} to wallet ${walletAddress}`);  
+    // Add logic to update winner status after successful claim  
+  };  
+  
+  return (  
+    <div className="min-h-screen bg-gray-100 p-4">  
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">  
+        <nav className="bg-purple-600 p-4">  
+          <div className="text-center">  
+            <h1 className="text-white text-3xl font-bubblegum mb-4">🏆 Current Winners</h1>  
+          </div>  
+        </nav>  
+  
+        <main className="p-8">  
+          <div className="mb-8">  
+            <div className="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-4 mb-8">  
+              <p className="text-yellow-800 text-center font-medium">  
+                Winners have 14 days to claim their prizes. Unclaimed prizes will be added to next month's drawing.  
+              </p>  
+            </div>  
+  
+            <div className="overflow-x-auto">  
+              <table className="min-w-full bg-white">  
+                <thead className="bg-purple-100">  
+                  <tr>  
+                    <th className="px-6 py-3 border-b-2 border-purple-200 text-left text-xs font-semibold text-purple-800 uppercase tracking-wider">  
+                      Rank  
+                    </th>  
+                    <th className="px-6 py-3 border-b-2 border-purple-200 text-left text-xs font-semibold text-purple-800 uppercase tracking-wider">  
+                      Prize  
+                    </th>  
+                    <th className="px-6 py-3 border-b-2 border-purple-200 text-left text-xs font-semibold text-purple-800 uppercase tracking-wider">  
+                      NFT ID  
+                    </th>  
+                    <th className="px-6 py-3 border-b-2 border-purple-200 text-left text-xs font-semibold text-purple-800 uppercase tracking-wider">  
+                      Wallet  
+                    </th>  
+                    <th className="px-6 py-3 border-b-2 border-purple-200 text-left text-xs font-semibold text-purple-800 uppercase tracking-wider">  
+                      Action  
+                    </th>  
+                  </tr>  
+                </thead>  
+                <tbody className="divide-y divide-gray-200">  
+                  {currentWinners.map((winner, index) => (  
+                    <tr key={index} className="hover:bg-gray-50">  
+                      <td className="px-6 py-4 whitespace-nowrap">  
+                        <span className="font-medium">{winner.rank}</span>  
+                      </td>  
+                      <td className="px-6 py-4 whitespace-nowrap text-green-600 font-medium">  
+                        {winner.prize}  
+                      </td>  
+                      <td className="px-6 py-4 whitespace-nowrap">  
+                        {winner.nftId}  
+                      </td>  
+                      <td className="px-6 py-4 whitespace-nowrap font-mono">  
+                        {winner.wallet}  
+                      </td>  
+                      <td className="px-6 py-4 whitespace-nowrap">  
+                        {walletAddress && (  
+                          <button onClick={() => handleClaim(winner)} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">  
+                            Claim  
+                          </button>  
+                        )}  
+                      </td>  
+                    </tr>  
+                  ))}  
+                </tbody>  
+              </table>  
+            </div>  
+          </div>  
+        </main>  
+      </div>  
+    </div>  
+  );  
+};  
+  
+export default Winners;  

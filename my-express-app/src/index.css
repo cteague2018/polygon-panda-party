@@ -1,118 +1,85 @@
-/* src/styles/index.css */  
 @tailwind base;  
 @tailwind components;  
 @tailwind utilities;  
-
+  
 body {  
-    margin: 0;  
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',  
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',  
-        sans-serif;  
-    -webkit-font-smoothing: antialiased;  
-    -moz-osx-font-smoothing: grayscale;  
-    overflow: hidden; /* Prevent scrollbars from appearing */  
+  margin: 0;  
+  font-family: 'Bubblegum Sans', cursive, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; /* Added Bubblegum Sans */  
+  -webkit-font-smoothing: antialiased;  
+  -moz-osx-font-smoothing: grayscale;  
 }  
-
-.center-container {  
-    display: flex;  
-    justify-content: center;  
-    align-items: center;  
-    min-height: 100vh;  
-    background-color: #f7fafc;  
-    padding: 1rem;  
-    position: relative; /* Position relative for confetti absolute positioning */  
-}  
-
-.content {  
-    max-width: 800px;  
-    width: 100%;  
-    background-color: white;  
-    border-radius: 0.5rem;  
-    padding: 2rem;  
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
-    position: relative; /* Ensure this is set for z-index to work */  
-    z-index: 1; /* Ensure content is above confetti */  
-}  
-
-.font-bubblegum {  
-    font-family: 'Bubblegum Sans', cursive;  
-}  
-
-.text-center {  
-    text-align: center;  
-}  
-
-.space-y-2 > * + * {  
-    margin-top: 0.5rem;  
-}  
-
+  
 /* Confetti Animation */  
 @keyframes confetti {  
-    0% {  
-        transform: translateY(0);  
-    }  
-    100% {  
-        transform: translateY(100vh);  
-    }  
+  0% {  
+    transform: translateY(0);  
+  }  
+  100% {  
+    transform: translateY(-100vh); /* Fall animation */  
+  }  
 }  
-
+  
 .confetti {  
-    position: absolute;  
-    width: 10px;  
-    height: 10px;  
-    background-color: #ff0; /* Yellow confetti */  
-    opacity: 0.8;  
-    animation: confetti 3s infinite;  
-    z-index: 0; /* Ensure confetti is behind content */  
+  position: absolute;  
+  top: 0;  
+  width: 10px;  
+  height: 10px;  
+  opacity: 0.8;  
+  animation: confetti 3s linear infinite;  
+  z-index: -1; /* Behind content */  
 }  
-
+  
 .confetti:nth-child(1) {  
-    left: 10%;  
-    animation-delay: 0s;  
+  left: 10%;  
+  animation-delay: 0s;  
+  background-color: #FF69B4; /* Pink */  
 }  
-
+  
 .confetti:nth-child(2) {  
-    left: 20%;  
-    animation-delay: 0.5s;  
+  left: 20%;  
+  animation-delay: 0.5s;  
+  background-color: #87CEEB; /* Skyblue */  
 }  
-
+  
 .confetti:nth-child(3) {  
-    left: 30%;  
-    animation-delay: 1s;  
+  left: 30%;  
+  animation-delay: 1s;  
+  background-color: #98FB98; /* Lightgreen */  
 }  
-
+  
 .confetti:nth-child(4) {  
-    left: 40%;  
-    animation-delay: 1.5s;  
+  left: 40%;  
+  animation-delay: 1.5s;  
+  background-color: #DDA0DD; /* Plum */  
 }  
-
+  
 .confetti:nth-child(5) {  
-    left: 50%;  
-    animation-delay: 2s;  
+  left: 50%;  
+  animation-delay: 2s;  
+  background-color: #F0E68C; /* Khaki */  
 }  
-
+  
 .confetti:nth-child(6) {  
-    left: 60%;  
-    animation-delay: 2.5s;  
+  left: 60%;  
+  animation-delay: 2.5s;  
+  background-color: #FF69B4; /* Pink */  
 }  
-
+  
 .confetti:nth-child(7) {  
-    left: 70%;  
-    animation-delay: 3s;  
+  left: 70%;  
+  animation-delay: 3s;  
+  background-color: #87CEEB; /* Skyblue */  
 }  
-
+  
 .confetti:nth-child(8) {  
-    left: 80%;  
-    animation-delay: 3.5s;  
+  left: 80%;  
+  animation-delay: 3.5s;  
+  background-color: #98FB98; /* Lightgreen */  
 }  
-
+  
 .confetti:nth-child(9) {  
-    left: 90%;  
-    animation-delay: 4s;  
+  left: 90%;  
+  animation-delay: 4s;  
+  background-color: #DDA0DD; /* Plum */  
 }  
-
-@media (max-width: 640px) {  
-    .content {  
-        padding: 1rem;  
-    }  
-}  
+  
