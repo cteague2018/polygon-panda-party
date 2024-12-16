@@ -5,7 +5,7 @@ const HowItWorks = () => {
     <section className="mb-8">  
       <h2 className="text-2xl font-bubblegum mb-4">How It Works 🎯</h2>  
       <div className="space-y-2">  
-        <p>Every month, 10 lucky NFT holders will be randomly selected</p>  
+        <p>Every month for 12 months, 10 lucky NFT holders will be randomly selected</p>  
         <p>Odds of winning Grand Prize: 1 in 10,000</p>  
         <p>Odds of winning Second Prize: 1 in 10,000</p>  
         <p>Odds of winning Third Prize: 1 in 10,000</p>  
